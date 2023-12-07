@@ -75,7 +75,7 @@ app.put('/content', (req, res) => {
     }
   });
 
-  fs.writeFile(fullPath, Buffer.from(fileContent, 'binary'), (err) => {
+  fs.writeFile(fullPath, fileContent, { encoding: 'binary' }, (err) => {
     if (err) {
       console.error(`Error writing file: ${err.message}`);
       return res.status(500).send('Internal Server Error');
@@ -83,7 +83,7 @@ app.put('/content', (req, res) => {
   
     console.log(`File updated successfully at ${fullPath}`);
     res.status(200).send('File updated successfully');
-  });
+  });  
 });
 
 app.delete('/content', (req, res) => {
