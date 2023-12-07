@@ -1,17 +1,17 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-
+const apikey = require('./config.js')
 const app = express();
-const port = 3000;
+const port = 3050;
 
-app.use(express.json({ limit: '50mb' }));
+app.use(express.raw({ limit: '50mb', type: 'image/jpeg' }));
 
 app.use((req, res, next) => {
   if (req.method === 'DELETE' || req.method === 'PUT') {
     const apiKeyHeader = req.header('api-key');
 
-    if (!apiKeyHeader || apiKeyHeader !== 'your-api-key') {
+    if (!apiKeyHeader || apiKeyHeader !== apikey) {
       return res.status(401).send('Unauthorized');
     }
   }
@@ -103,7 +103,7 @@ app.delete('/content', (req, res) => {
           return res.status(500).send('Internal Server Error');
         }
         console.log(`File deleted successfully at ${fullPath}`);
-        res.status(204).end();
+        res.status(200).end();
       });
     } else {
       res.status(404).send('File not found');
