@@ -3,8 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const apikey = require('./config.js')
 const app = express();
+const cors = require('cors');
 const port = 3050;
 
+app.use(cors());
 app.use(express.raw({ limit: '50mb', type: 'image/jpeg' }));
 
 app.use((req, res, next) => {
