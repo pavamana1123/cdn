@@ -72,15 +72,17 @@ app.put('/content', (req, res) => {
   // Create parent and children directories if they don't exist
   fs.mkdirSync(directoryPath, { recursive: true }, (err) => {
     if (err) {
-      console.error(`Error creating directories: ${err.message}`);
-      return res.status(500).send('Internal Server Error');
+      var errorStatement = `Error creating directories: ${err.message}`
+      console.error(errorStatement);
+      return res.status(500).send(errorStatement);
     }
   });
 
   fs.writeFile(fullPath, fileContent, 'binary', (err) => {
     if (err) {
-      console.error(`Error writing file: ${err.message}`);
-      return res.status(500).send('Internal Server Error');
+      var errorStatement = `Error writing file: ${err.message}`
+      console.error(errorStatement);
+      return res.status(500).send(errorStatement);
     }
 
     console.log(`File updated successfully at ${fullPath}`);
