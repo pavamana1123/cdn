@@ -41,6 +41,7 @@ app.head('/content', (req, res) => {
 
 app.get('/content', (req, res) => {
   const filePath = req.query.path
+  const maxAge = req.query.maxAge || 3600
 
   if (!filePath) {
     return res.status(400).send('File path is missing')
@@ -50,6 +51,9 @@ app.get('/content', (req, res) => {
 
   fs.exists(fullPath, (exists) => {
     if (exists) {
+      res.set({
+        'Cache-Control': `max-age=${maxAge}`
+      })
       res.sendFile(fullPath)
     } else {
       res.status(404).send('File not found')
