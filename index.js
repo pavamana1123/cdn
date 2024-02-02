@@ -51,9 +51,6 @@ app.get('/content', (req, res) => {
 
   fs.exists(fullPath, (exists) => {
     if (exists) {
-      res.set({
-        'Cache-Control': `max-age=${maxAge}`
-      })
       res.sendFile(fullPath)
     } else {
       res.status(404).send('File not found')
