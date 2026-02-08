@@ -79,8 +79,6 @@ app.put('/content', (req, res) => {
     }
   })
 
-  console.log(`Writing file to ${fullPath}`, fileContent)
-
   fs.writeFile(fullPath, fileContent, 'binary', (err) => {
     if (err) {
       var errorStatement = `Error writing file: ${err.message}`
